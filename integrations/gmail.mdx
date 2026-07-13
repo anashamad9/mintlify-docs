@@ -1,5 +1,5 @@
 ---
-title: "Gmail Integration: Automate Your Email Workflows"
+title: "Gmail Integration: Automate Sending and Receiving Email"
 sidebarTitle: "Gmail"
 description: "Connect Gmail to Atmet and automate sending, receiving, drafting, and organizing your email — triggered by real-time inbox events."
 ---
@@ -22,8 +22,11 @@ Gmail uses **Google OAuth 2.0**. Atmet never sees your Google password — you a
 
     | Scope | What it allows |
     |-------|---------------|
-    | `gmail.send` | Send email and manage sent messages on your behalf |
-    | `gmail.readonly` | Read messages, threads, labels, and drafts |
+    | `gmail.modify` | Read, send, label, archive, and move Gmail messages to trash when workflows run |
+    | `gmail.compose` | Create, update, and send drafts or composed messages |
+    | `gmail.settings.basic` | Read and update mailbox settings such as labels, filters, POP, IMAP, language, and vacation replies |
+    | `gmail.settings.sharing` | Read and update forwarding and send-as settings |
+    | `userinfo.email` | Identify which mailbox is linked to this workspace |
   </Step>
   <Step title="Return to Atmet">
     After you approve, Google redirects you back to Atmet. Gmail is now connected and ready to use in workflows.
@@ -92,10 +95,13 @@ Once a workflow is triggered, you can use any of the following actions to intera
 
 | Scope | What Atmet can do |
 |-------|------------------|
-| `gmail.send` | Send emails, manage drafts, reply to threads, forward messages |
-| `gmail.readonly` | Read messages, search your inbox, fetch threads and drafts |
+| `gmail.modify` | Read, send, label, archive, and move messages to trash; perform all core email workflow actions |
+| `gmail.compose` | Create, update, and send drafts or new composed messages |
+| `gmail.settings.basic` | Read and update labels, filters, IMAP/POP settings, language, and vacation reply settings |
+| `gmail.settings.sharing` | Read and update forwarding addresses and send-as aliases |
+| `userinfo.email` | Identify which mailbox is connected to this workspace |
 
-Atmet does not request write access to labels, settings, or any scope beyond `send` and `readonly`. You can review and revoke Atmet's access at any time from your [Google Account permissions page](https://myaccount.google.com/permissions).
+You can review and revoke Atmet's access at any time from your [Google Account permissions page](https://myaccount.google.com/permissions).
 
 ## Troubleshooting
 
@@ -108,7 +114,7 @@ Atmet does not request write access to labels, settings, or any scope beyond `se
 </Accordion>
 
 <Accordion title="My workflow can't send email — getting a permission error">
-  This usually means Atmet's token is missing the `gmail.send` scope, which can happen if you authorized before the scope was added, or if you only granted partial permissions during OAuth. Go to **Settings → Integrations**, disconnect Gmail, and reconnect — making sure to approve all requested permissions when the Google consent screen appears.
+  This usually means Atmet's token is missing the `gmail.modify` or `gmail.compose` scope, which can happen if you authorized before the scope was added, or if you only granted partial permissions during OAuth. Go to **Settings → Integrations**, disconnect Gmail, and reconnect — making sure to approve all requested permissions when the Google consent screen appears.
 </Accordion>
 
 <Accordion title="Attachments aren't being included when I send email">

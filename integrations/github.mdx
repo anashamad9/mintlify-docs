@@ -1,7 +1,7 @@
 ---
-title: "GitHub Integration: Automate Your Dev Workflows"
+title: "GitHub Integration: Automate Issues, PRs, and Pushes"
 sidebarTitle: "GitHub"
-description: "Connect GitHub to Atmet and trigger automated workflows from issues, pull requests, pushes, and new repositories in your org."
+description: "Connect GitHub to Atmet and automate issue triage, pull request summaries, and push notifications using real GitHub event triggers."
 ---
 
 The GitHub integration lets your Atmet agents respond to activity across your repositories and organization. You can trigger workflows when a new issue is opened, a pull request is submitted, commits are pushed, or a new repository is created — then take action automatically, from creating issues to notifying teammates on Telegram. This page covers how to connect GitHub, the triggers and actions available, and example workflows to get you started.
@@ -31,12 +31,15 @@ GitHub uses **OAuth**. Atmet never handles your GitHub password — you authoriz
 
 ## Triggers
 
-| Trigger ID | Name | Description |
-|------------|------|-------------|
-| `GITHUB_NEW_REPO_EVENT` | New Repository Created | Fires when a new repository is created in your organization. |
-| `GITHUB_NEW_ISSUE_EVENT` | New Issue | Fires when a new issue is opened in a repository. |
-| `GITHUB_NEW_PULL_REQUEST_EVENT` | New Pull Request | Fires when a new pull request is opened in a repository. |
-| `GITHUB_NEW_COMMIT_PUSH_EVENT` | New Commit Push | Fires when one or more commits are pushed to a branch. |
+| Trigger ID | Name | Description | Key Config Options |
+|------------|------|-------------|-------------------|
+| `GITHUB_ISSUE_CREATED_TRIGGER` | New Issue Created | Fires when a new issue is opened in a repository. | `owner`, `repo`, `labels`, `assignee`, polling interval |
+| `GITHUB_PULL_REQUEST_CREATED` | New Pull Request Created | Fires when a new pull request is opened. | `owner`, `repo`, `base_branch`, `head_branch`, `label`, polling interval |
+| `GITHUB_COMMIT_EVENT` | Commit Event | Fires when commits are pushed to a repository. | `owner`, `repo` |
+| `GITHUB_BRANCH_CREATED_TRIGGER` | New Branch Created | Fires when a new branch is created in a repository. | `owner`, `repo`, polling interval |
+| `GITHUB_REPOSITORY_TAG_CREATED_TRIGGER` | New Tag Created | Fires when a new tag is created in a repository. | `owner`, `repo`, polling interval |
+| `GITHUB_ISSUE_COMMENT_CREATED_TRIGGER` | New Issue Comment | Fires when a new comment is posted on an issue. | `owner`, `repo`, `issue_number`, polling interval |
+| `GITHUB_PULL_REQUEST_REVIEW_SUBMITTED_TRIGGER` | Pull Request Review Submitted | Fires when a review is submitted on a pull request. | `owner`, `repo`, `pull_number`, polling interval |
 
 ## Actions
 
@@ -44,10 +47,14 @@ GitHub uses **OAuth**. Atmet never handles your GitHub password — you authoriz
 |-----------|------|-------------|-----------------|
 | `GITHUB_CREATE_AN_ISSUE` | Create an issue | Open a new issue in a repository. | `title`, `body`, `owner`, `repo`, `labels`, `assignees` |
 | `GITHUB_CREATE_A_PULL_REQUEST` | Create a pull request | Open a new PR between branches. | `title`, `body`, `owner`, `repo`, `head`, `base` |
-| `GITHUB_STAR_A_REPOSITORY` | Star a repository | Star a repo from your account. | `owner`, `repo` |
-| `GITHUB_LIST_GITHUB_ISSUE_COMMENTS` | List issue comments | Retrieve all comments on an issue. | `owner`, `repo`, `issue_number` |
+| `GITHUB_STAR_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER` | Star a repository | Star a repo from your connected account. | `owner`, `repo` |
+| `GITHUB_LIST_ISSUE_COMMENTS` | List issue comments | Retrieve all comments on an issue. | `owner`, `repo`, `issue_number` |
 | `GITHUB_CREATE_A_REPLY_FOR_A_REVIEW_COMMENT` | Reply to review comment | Post a reply to a pull request review comment. | `owner`, `repo`, `pull_number`, `comment_id`, `body` |
-| `GITHUB_SEARCH_GITHUB_CODE` | Search code | Search across repositories using GitHub's code search. | `query` |
+| `GITHUB_SEARCH_CODE` | Search code | Search across repositories using GitHub's code search. | `q`, `sort`, `order`, `per_page` |
+| `GITHUB_CREATE_AN_ISSUE_COMMENT` | Comment on issue | Post a comment on an existing issue. | `owner`, `repo`, `issue_number`, `body` |
+| `GITHUB_CLOSE_ISSUE` | Close issue | Close an open issue. | `owner`, `repo`, `issue_number`, `state_reason` |
+| `GITHUB_MERGE_A_PULL_REQUEST` | Merge pull request | Merge an open pull request. | `owner`, `repo`, `pull_number`, `merge_method` |
+| `GITHUB_LIST_REPOSITORY_ISSUES` | List repository issues | List open or closed issues in a repository. | `owner`, `repo`, `state`, `labels`, `assignee` |
 
 ## Example Workflows
 
@@ -57,8 +64,8 @@ Use the **New Issue** trigger filtered to issues labeled `bug`. When one arrives
 **Post a PR summary to Telegram when a PR is opened.**
 Use the **New Pull Request** trigger on your main repo. When it fires, pass the PR title, description, and diff URL to AI Core to generate a plain-English summary, then send it to your team's Telegram group with **Telegram → Send message**.
 
-**Auto-label new repositories.**
-Use the **New Repository Created** trigger in your org. When a new repo appears, use **Create an issue** to open a setup checklist issue in that repo automatically, ensuring every new project starts with the same onboarding steps.
+**Open a setup checklist when a new branch is created.**
+Use the **New Branch Created** trigger scoped to your org's repositories. When a feature branch appears, use **Create an issue** to open a setup checklist issue in that repo automatically, ensuring every new branch starts with the same onboarding steps.
 
 ## Troubleshooting
 

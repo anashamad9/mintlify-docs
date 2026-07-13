@@ -31,11 +31,17 @@ Google Drive uses the same **Google OAuth 2.0** connection as Gmail.
 
 ## Triggers
 
-| Trigger | Description | Details |
-|---------|-------------|---------|
-| **File Changed** | Fires when a file in your Drive is created or modified. | Atmet watches for changes using the Drive changes API. You can scope the watch to a specific folder. |
+| Trigger ID | Name | Description | Key Config Options |
+|------------|------|-------------|-------------------|
+| `GOOGLEDRIVE_FILE_CREATED_TRIGGER` | File Created | Fires when a new file appears in a watched folder. | `folder_id`, `query`, `max_results`, polling interval |
+| `GOOGLEDRIVE_FILE_UPDATED_TRIGGER` | File Updated | Fires when an existing file's content is modified. | `drive_id`, `content_only`, polling interval |
+| `GOOGLEDRIVE_FILE_DELETED_OR_TRASHED_TRIGGER` | File Deleted or Trashed | Fires when a file is deleted or moved to trash. | `drive_id`, `restrict_to_my_drive`, polling interval |
+| `GOOGLEDRIVE_FILE_SHARED_PERMISSIONS_ADDED` | File Shared | Fires when sharing permissions are added to a file. | `file_id`, `drive_id`, polling interval |
+| `GOOGLEDRIVE_NEW_FILE_MATCHING_QUERY_TRIGGER` | New File Matching Query | Fires when a new file matches a Drive search query. | `query`, `driveId`, `spaces`, polling interval |
+| `GOOGLEDRIVE_GOOGLE_DRIVE_CHANGES` | Drive Changes | Fires on any Drive change across files and folders. | `drive_id`, `restrict_to_my_drive`, `spaces`, polling interval |
+| `GOOGLEDRIVE_COMMENT_ADDED_TRIGGER` | Comment Added | Fires when a comment is added to a Docs, Sheets, or Slides file. | `file_id`, polling interval |
 
-Use this trigger to kick off workflows whenever a new file lands in a watched folder — for example, when a client uploads a contract to a shared Drive folder.
+Use these triggers to kick off workflows whenever files land in a watched folder — for example, when a client uploads a contract to a shared Drive folder, or when a specific document is updated.
 
 ## Actions
 

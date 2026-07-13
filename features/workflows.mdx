@@ -1,5 +1,5 @@
 ---
-title: "Manage Your Automated Workflows in Atmet"
+title: "Workflows: View, Monitor, and Manage Your Automations"
 sidebarTitle: "Workflows"
 description: "View, search, filter, and monitor all your automated workflows from the Workflows dashboard, and drill into run history for each one."
 ---
@@ -13,17 +13,17 @@ Every workflow displays a status badge so you can see its state at a glance:
 | Status | Meaning |
 |---|---|
 | **Running** | The workflow is active and listening for its trigger. It will execute automatically whenever the trigger condition is met. |
-| **In Review** | The workflow was drafted but has not been activated yet, or it has been paused. It will not run until you activate it. |
-| **Done** | The workflow completed a one-time run and is no longer listening for new triggers. |
+| **In review** | The workflow has been created but not yet activated. It will not run until you activate it. |
+| **Done** | The workflow has been deactivated or completed a one-time run and is no longer listening for new triggers. |
 
 ## Searching and filtering
 
 Use the **search bar** at the top of the Workflows page to find workflows by name or keyword. To narrow the list further, use the **status filter** to show only workflows in a specific state:
 
 - **All** — shows every workflow regardless of status
-- **Running** — shows only active, listening workflows
-- **In Review** — shows drafts and paused workflows
-- **Done** — shows completed one-time runs
+- **Active** — shows only running, live workflows
+- **In review** — shows draft workflows not yet activated
+- **Completed** — shows workflows that have finished a one-time run
 
 <Tip>
   Give your workflows descriptive names when you create them — for example, "Invoice PDF → Google Drive" rather than "Workflow 1" — so you can find them quickly as your library grows.
@@ -33,7 +33,7 @@ Use the **search bar** at the top of the Workflows page to find workflows by nam
 
 Click any workflow card to open its detail page. The detail page shows:
 
-- **Step graph** — a visual map of every action in the workflow, from trigger to final output
+- **Visual flow** — a map of every action in the workflow, from trigger to final output
 - **Run history** — a log of every time the workflow has executed
 - **Configuration** — the trigger settings, connected apps, and any schedule or webhook details
 
@@ -66,7 +66,7 @@ To change an existing workflow, you have two options:
 
 To pause or remove a workflow, open the action menu by clicking the **⋯** icon on the workflow card:
 
-- **Pause** — sets the workflow to **In Review** status. The workflow stops listening for its trigger and will not run until you reactivate it.
+- **Pause** — deactivates the workflow and sets it to **Done** status. The workflow stops listening for its trigger and will not run until you reactivate it.
 - **Delete** — permanently removes the workflow and stops all future runs.
 
 <Note>
@@ -78,12 +78,10 @@ To pause or remove a workflow, open the action menu by clicking the **⋯** icon
 Workflows move through a predictable lifecycle from creation to completion:
 
 ```
-Draft (In Review) → Running → Done
-                 ↑         ↓
-                 └─ Paused ─┘
+In review (Draft) → Running → Done
 ```
 
-- A new workflow starts as a **draft** with **In Review** status until you activate it.
+- A new workflow starts as a **draft** with **In review** status until you activate it.
 - Once activated, it moves to **Running** and executes whenever its trigger fires.
-- Event-triggered and schedule-triggered workflows stay **Running** indefinitely until you pause or delete them.
+- Event-triggered and schedule-triggered workflows stay **Running** until you deactivate or delete them — deactivating moves them to **Done**.
 - One-time manual runs move to **Done** after a single execution.

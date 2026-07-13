@@ -8,16 +8,15 @@ Automations are the persistent backend objects that power every workflow in Atme
 
 ## Automation lifecycle
 
-Every automation moves through a clear set of states from the moment it's created to when it's either paused or finished:
+Every automation moves through a clear set of states from the moment it's created to when it's either stopped or finished:
 
 ```
-Draft → Active (Running) → Paused / Completed
+Draft → Active → Inactive (Completed)
 ```
 
 - **Draft** — the automation has been defined but not yet activated. It won't execute until you activate it.
-- **Active (Running)** — the automation is live and listening for its trigger. It executes automatically every time the trigger condition is met.
-- **Paused** — the automation has been temporarily deactivated. It retains its configuration and can be reactivated at any time.
-- **Completed** — the automation finished a one-time run and is no longer listening for triggers.
+- **Active** — the automation is live and listening for its trigger. It executes automatically every time the trigger condition is met.
+- **Inactive** — the automation has been deactivated (either manually stopped or after completing a one-time run). It retains its configuration but will not run again until you reactivate it.
 
 ## Trigger types
 
@@ -58,8 +57,8 @@ The status you see on the Workflows dashboard maps directly to the automation's 
 | Dashboard status | Automation state | What it means |
 |---|---|---|
 | **Running** | Active | Listening for its trigger and executing on every match |
-| **In Review** | Draft / Paused | Defined but not yet activated, or temporarily paused |
-| **Done** | Completed | Finished a one-time run; no longer listening |
+| **In review** | Draft | Defined but not yet activated; will not run until you activate it |
+| **Done** | Inactive | Deactivated — either stopped manually or after completing a one-time run |
 
 ## Schedules
 

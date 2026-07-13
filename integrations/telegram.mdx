@@ -1,14 +1,14 @@
 ---
 title: "Telegram Integration: Automate Your Telegram Account"
 sidebarTitle: "Telegram"
-description: "Connect your personal Telegram account to Atmet and automate messaging workflows across your DMs, groups, and channels."
+description: "Connect your personal Telegram account to Atmet and automate messaging across your DMs, groups, and channels — using real-time account events."
 ---
 
 The Telegram integration connects your **personal Telegram account** — not a bot — to Atmet. This means your agents can read and send messages exactly as you would, across every DM, group, and channel you have access to. Use it to trigger workflows from messages your audience sends you, auto-reply to inbound requests, or chain Telegram activity with any other integration in your stack.
 
 ## What This Integration Is
 
-Unlike a Telegram bot, Atmet connects to your actual Telegram account using the MTProto protocol (Telegram's native User API). This gives the agent visibility into your real chats — the same ones you see when you open Telegram on your phone. There's no separate bot to create, no bot token to manage, and no need to add anything to your groups.
+Unlike a Telegram bot, Atmet connects to your actual Telegram account using Telegram's personal account API. This gives the agent visibility into your real chats — the same ones you see when you open Telegram on your phone. There's no separate bot to create, no bot token to manage, and no need to add anything to your groups.
 
 This approach is what makes automations like "when someone messages my channel, reply with a generated image" possible. A bot can only see messages sent directly to it; your personal account can see everything you can see.
 
@@ -42,7 +42,7 @@ This approach is what makes automations like "when someone messages my channel, 
 |---------|-------------|---------------|
 | **New Message** | Fires when a message arrives in any of your chats, groups, or channels. | Filter by specific chat, group, or channel; optionally filter by message content or keywords. |
 
-Atmet receives these events through MTProto live updates — there's no polling delay. Messages arrive in near real-time.
+Atmet receives these events through a persistent connection to your Telegram account — there's no polling delay. Messages arrive in near real-time.
 
 ## Actions
 
