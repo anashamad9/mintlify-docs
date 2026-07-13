@@ -1,0 +1,99 @@
+---
+title: "Frequently Asked Questions About Atmet"
+sidebarTitle: "FAQ"
+description: "Answers to common questions about Atmet — covering access, workflows, integrations, skills, and AI model selection."
+---
+
+This page answers the most common questions about getting started with Atmet, managing your automations, and connecting your apps. If you don't find what you're looking for here, reach out via the in-app chat or email [support@atmetai.com](mailto:support@atmetai.com).
+
+## Access & Account
+
+<AccordionGroup>
+  <Accordion title="How do I get access to Atmet?">
+    Atmet is currently invite-only during the alpha. Join the waitlist at [https://www.atmetai.com/waitlist](https://www.atmetai.com/waitlist) and you'll receive an email invite once your account is approved.
+  </Accordion>
+
+  <Accordion title="How do I reset my password?">
+    Go to [https://app.atmetai.com/forgot-password](https://app.atmetai.com/forgot-password), enter the email address associated with your account, and follow the reset link sent to your inbox.
+  </Accordion>
+
+  <Accordion title="I didn't receive a verification email. What should I do?">
+    First, check your spam or junk folder. If the email isn't there, use the **Resend verification** option on the sign-in page to request a new one.
+  </Accordion>
+
+  <Accordion title="Can I use Atmet without an invite?">
+    Not during the alpha — all accounts require an invite. Join the waitlist at [https://www.atmetai.com/waitlist](https://www.atmetai.com/waitlist) to be notified when access is expanded.
+  </Accordion>
+</AccordionGroup>
+
+## Workflows & Automations
+
+<AccordionGroup>
+  <Accordion title="Do I need to stay logged in for automations to run?">
+    No. Once you activate a workflow, it runs 24/7 in the background regardless of whether you're logged in. You only need to be signed in to create, edit, or monitor your automations.
+  </Accordion>
+
+  <Accordion title="How do I stop an automation?">
+    Open the **Workflows** page, click the **⋯** menu on the automation you want to stop, and select **Pause** or **Delete**.
+  </Accordion>
+
+  <Accordion title="Why did my automation fail?">
+    Open the **Workflows** page, click the automation, and review the run history for error messages. The most common causes are a disconnected integration, an expired OAuth token, or an invalid action input. Fix the underlying issue and re-run the automation to confirm it works.
+  </Accordion>
+
+  <Accordion title="Can I run an automation manually?">
+    Yes. Open the **Workflows** page, click the **⋯** menu on the automation, and select **Run now**. This is useful for testing before you rely on an automated trigger.
+  </Accordion>
+
+  <Accordion title="How many automations can I create?">
+    Usage limits depend on your plan. During the alpha, contact support if you need higher limits and the team will work with you directly.
+  </Accordion>
+</AccordionGroup>
+
+## Integrations
+
+<AccordionGroup>
+  <Accordion title="Which apps does Atmet support?">
+    Atmet currently supports **Gmail**, **Google Drive**, **Telegram** (personal account), and **GitHub**. Additional connectors are available via Composio, including Google Calendar, Google Docs, Google Sheets, and Instagram. More integrations are on the way.
+  </Accordion>
+
+  <Accordion title="What is the Telegram integration and is it safe?">
+    Atmet connects to your personal Telegram account — not a bot. Your credentials are encrypted at rest and are never accessible from the interface. The agent only uses your account for actions explicitly defined in your activated workflows, so nothing runs outside the scope you set.
+
+    <Warning>
+      Your Telegram credentials are the most sensitive credential you connect to Atmet. Review your activated workflows carefully before enabling any Telegram actions.
+    </Warning>
+  </Accordion>
+
+  <Accordion title="Do I need my own OpenAI API key?">
+    Yes. If you want to use OpenAI-powered actions in your workflows, you provide your own API key (BYOK — Bring Your Own Key). Your key is encrypted and used only for your own workflow runs. You are responsible for your own OpenAI usage costs.
+  </Accordion>
+
+  <Accordion title="My integration stopped working. What do I do?">
+    Go to **Settings → Integrations**, find the disconnected app, and click **Re-authorize** to complete the OAuth flow again. OAuth tokens can expire over time and require periodic re-authorization.
+
+    <Note>
+      One Google OAuth connection covers both Gmail and Google Drive. Re-authorizing Google re-grants access to both services.
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+## Skills
+
+<AccordionGroup>
+  <Accordion title="What is a skill in Atmet?">
+    A skill is a reusable AI capability module — a saved set of instructions or knowledge that the agent draws from when running your workflows. You can create skills from Markdown files, uploaded folders, or conversations in Atmet's AI Core chat.
+  </Accordion>
+
+  <Accordion title="Can I share a skill with my team?">
+    Yes. When creating a skill, set its scope to **Workspace** and all members of your workspace will be able to use it in their own workflows and AI Core conversations.
+  </Accordion>
+</AccordionGroup>
+
+## AI & Models
+
+<AccordionGroup>
+  <Accordion title="Can I choose which AI model powers my workflows?">
+    Yes. When building a workflow in AI Core, you can select the AI model for that workflow. Choose a fast model for routine automation tasks or a more capable model for steps that require complex reasoning.
+  </Accordion>
+</AccordionGroup>

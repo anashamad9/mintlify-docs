@@ -1,47 +1,80 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Get Started with Atmet in 5 Minutes"
+sidebarTitle: "Quickstart"
+description: "Create your Atmet account, connect your first app, describe a workflow in plain language, and watch your automation run — all in under five minutes."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
+This guide walks you through everything you need to go from zero to your first live automation: creating an account, setting up a workspace, connecting an app, and using AI Core to describe and activate a workflow. By the end, you'll have a real automation running in the background without any code or template wrangling.
 
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
-
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+<Note>
+  Atmet is currently in alpha and access is invite-only. If you haven't received an invite, join the waitlist at [atmetai.com/waitlist](https://www.atmetai.com/waitlist). The team will reach out as soon as a spot is available.
+</Note>
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
 
-    ```bash
-    npm install your-package
-    ```
-  </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
+  <Step title="Create your account">
+    Go to [app.atmetai.com/sign-up](https://app.atmetai.com/sign-up) and create your account with your email address.
 
-    ```bash
-    your-cli init
-    ```
+    If you're on the waitlist and have received an invite link, use that link to bypass the waitlist and land directly in the sign-up flow. Once your account is created, you'll be taken to the workspace setup screen.
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
 
-    ```bash
-    your-cli start
-    ```
+  <Step title="Create a workspace">
+    Name your workspace — this is your team's shared environment where automations, skills, and connected apps live together. If you're working solo, name it after yourself or your project. If you're setting up for a team, use a company or team name.
+
+    You can invite teammates from the workspace setup screen or skip this step and invite them later from **Settings → Members**. All members share the same connected apps, workflows, and workspace memory.
   </Step>
+
+  <Step title="Connect your first app">
+    Navigate to **Integrations** in the left sidebar. You'll see the available connectors — Gmail, Google Drive, Telegram, GitHub, and more.
+
+    Select **Gmail** or **Google Drive** and click **Connect**. Atmet will redirect you to Google's OAuth consent screen. Grant the requested permissions and you'll be returned to Atmet with the integration active.
+
+    <Tip>
+      Start with Gmail or Google Drive — they're the easiest integrations to test with and cover a wide range of common business workflows like document routing, email triage, and notification forwarding.
+    </Tip>
+  </Step>
+
+  <Step title="Open AI Core and describe your workflow">
+    Click **AI Core** in the left sidebar to open the conversational interface. Type a description of what you want to automate in plain language. You don't need to use any special syntax.
+
+    For example, try:
+
+    > "When I receive a Gmail with 'invoice' in the subject line, save the attachment to a folder called Invoices in Google Drive."
+
+    The AI agent will read your description, propose a workflow plan, and ask any clarifying questions it needs — like which Google Drive folder to use or whether to handle emails with multiple attachments. These questions appear as minimal input panels (a folder picker, a dropdown, or a simple text field) rather than full configuration screens.
+  </Step>
+
+  <Step title="Review and activate the workflow">
+    Once the agent has everything it needs, it displays the workflow steps for your review. Read through the plan to make sure it matches your intent.
+
+    For any sensitive or outbound action — like sending a reply email or posting a message — the agent will ask for your explicit confirmation before the workflow goes live. This is a one-time design-time check, not something you'll have to approve on every run.
+
+    When you're satisfied, click **Activate**. The workflow is now live.
+  </Step>
+
+  <Step title="Watch it run">
+    Navigate to **Workflows** in the left sidebar. You'll see your new automation listed with its current status. Each time the trigger fires — a new invoice email arriving, for example — Atmet logs the run, including every step taken, the inputs and outputs at each step, and the total duration.
+
+    You don't need to stay logged in for workflows to execute. Atmet runs them 24/7 in the background, and you can check the run history any time.
+  </Step>
+
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## What's Next?
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
-</Tip>
+Now that your first automation is live, explore what else Atmet can do.
+
+<CardGroup cols={2}>
+  <Card title="Core Concepts" icon="book-open" href="/concepts">
+    Understand workflows, triggers, skills, and workspace memory in depth.
+  </Card>
+  <Card title="AI Core" icon="message-bot" href="/features/ai-core">
+    Learn advanced ways to iterate on and refine your workflows through conversation.
+  </Card>
+  <Card title="Skills" icon="sparkles" href="/features/skills">
+    Add reusable AI capability modules to make your workflows smarter.
+  </Card>
+  <Card title="Integrations Overview" icon="plug" href="/integrations/overview">
+    See all available app connectors and how to authenticate each one.
+  </Card>
+</CardGroup>

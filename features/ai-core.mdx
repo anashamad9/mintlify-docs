@@ -1,0 +1,76 @@
+---
+title: "AI Core: Build Workflows Through Conversation"
+sidebarTitle: "AI Core"
+description: "Use Atmet's conversational AI agent to describe, design, and activate automated workflows in plain language — no coding required."
+---
+
+AI Core is Atmet's conversational interface where you build workflows by simply describing what you want to automate. Instead of configuring steps manually, you tell the AI agent your goal in plain language, answer a few guided questions, and the agent assembles a complete workflow definition ready to activate. This page walks you through starting a conversation, responding to the agent's prompts, reviewing your workflow, and sharing sessions with teammates.
+
+## Starting a conversation
+
+Navigate to **AI Core** in the left sidebar. Type your workflow goal into the prompt area at the center of the screen. You don't need to use special syntax — describe the automation the same way you'd explain it to a colleague.
+
+**Example prompts to get you started:**
+
+- "When I get a new invoice email in Gmail, save the PDF attachment to my Drive folder."
+- "Every weekday at 9am, summarize my unread Gmail messages and send the summary to my Telegram."
+- "When a new row is added to my Google Sheet, post a message to my team's Telegram channel."
+
+As soon as you send your first message, the prompt area docks to the bottom of the screen, turning the interface into a familiar chat layout so you can continue the conversation naturally.
+
+<Tip>
+  The more specific your initial description, the fewer follow-up questions the agent needs to ask. Include the apps involved, the trigger event, and what the final output should be.
+</Tip>
+
+## How the agent responds
+
+After you send your prompt, the agent reviews your connected apps, identifies the integrations and data it needs, and formulates a plan. It then replies with a summary of what it understood and, if anything is unclear or requires your input, surfaces one or more smart input panels directly inside the chat.
+
+You don't need to navigate away from the conversation — all configuration happens inline.
+
+## Generative UI panels
+
+The agent uses interactive panels to collect the exact inputs it needs. Each panel is purpose-built for a specific type of information:
+
+| Panel | What it does |
+|---|---|
+| **File picker** | Browse and select files or folders from your connected Google Drive |
+| **Contact / email picker** | Choose recipients from your saved contacts or workspace directory |
+| **Chat picker** | Select a Telegram channel, group, or direct message thread |
+| **Schedule picker** | Set a recurring schedule using a visual cron builder (e.g., every weekday at 9am) |
+| **Text input** | Enter a free-form value such as a label filter, keyword, or custom message template |
+| **Preview panel** | Review generated content — such as a drafted email or summary — before it becomes part of the workflow |
+
+Respond to each panel as it appears. Once you've answered all prompts, the agent moves on to building the full workflow.
+
+## Reviewing the workflow
+
+Once the agent has everything it needs, it presents the complete workflow as an ordered list of steps. Review each step to confirm the trigger, actions, and any conditions match your intent. If anything looks wrong, tell the agent in plain language — for example, "Change the Gmail filter to only match emails with the label 'Invoices'" — and it will update the workflow accordingly.
+
+## Approval checkpoints
+
+For actions that are sensitive or irreversible — such as sending emails, posting messages to a channel, or deleting files — the agent pauses before activating and asks for your explicit confirmation in plain language. This gives you a final chance to review exactly what will happen before the workflow goes live.
+
+## Sharing a chat
+
+You can invite teammates to join an AI Core chat session, making workflow design a collaborative process. To add someone, click the **Share** icon at the top of the chat and enter their name or email. Everyone in the session can read the conversation history, respond to agent prompts, and review the workflow before activation.
+
+<Steps>
+  <Step title="Open the share panel">
+    Click the **Share** icon in the top-right corner of the AI Core chat.
+  </Step>
+  <Step title="Add a teammate">
+    Search for a teammate by name or email address and select them from the list.
+  </Step>
+  <Step title="Collaborate">
+    Your teammate joins the session and can view the full conversation history and contribute to the workflow design.
+  </Step>
+</Steps>
+
+## Multiple chats
+
+Each AI Core chat is an independent session tied to a single workflow project. You can open as many chats as you need — one per workflow, one per project, or however makes sense for your work. Switch between chats using the chat list in the AI Core sidebar. Starting a new chat does not affect any of your existing workflows or conversations.
+
+<Note>
+  Once you activate a workflow, it runs entirely on Atmet's automation engine — unattended, 24/7 — without the AI agent re-planning anything. AI Core is a design-time tool. After activation, manage and monitor your workflow from the **Workflows** page.
+</Note>

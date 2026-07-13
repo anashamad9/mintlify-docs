@@ -1,0 +1,85 @@
+---
+title: "Connect Your Apps to Atmet"
+sidebarTitle: "Overview"
+description: "Connect your favorite apps to Atmet and give your AI agents the tools they need to automate workflows across your entire stack."
+---
+
+Integrations are the bridge between Atmet and the tools you already use. Once you connect an app, your AI agents can trigger workflows from events in that app, take actions on your behalf, and pass data between services — all without manual intervention. This page walks you through how to connect apps, what auth methods are supported, and which integrations are available today.
+
+## How to Connect an App
+
+<Steps>
+  <Step title="Open Integrations from the sidebar">
+    Navigate to the **Integrations** page at `/integrations`. You'll see every app available to connect.
+  </Step>
+  <Step title="Browse or search for the app">
+    Use the search bar or scroll through the available integrations to find the app you want.
+  </Step>
+  <Step title="Click Connect">
+    Select the app card and click the **Connect** button to start the authorization flow.
+  </Step>
+  <Step title="Authorize the app">
+    **For OAuth apps:** A popup window opens and takes you through the app's authorization flow. Review the requested permissions and grant access to complete the connection.
+
+    **For API key apps:** Paste your API key into the input field and click **Save**.
+  </Step>
+  <Step title="Start building">
+    Once connected, the integration is available in **AI Core**. Describe your workflow and the agent will automatically use your connected credentials.
+  </Step>
+</Steps>
+
+## Auth Types
+
+Atmet supports two methods for authenticating integrations:
+
+| Auth Type | How it works |
+|-----------|-------------|
+| **OAuth** | You authorize Atmet through the app's official OAuth flow. You never share your password — Atmet receives a scoped access token that you can revoke at any time from the app's own settings. |
+| **API Key** | You generate an API key inside the app and paste it into Atmet. You control the key's permissions and can rotate or revoke it whenever needed. |
+
+## Available Integrations
+
+<CardGroup cols={2}>
+  <Card title="Gmail" icon="envelope" href="/integrations/gmail">
+    Send and receive emails, manage drafts, and trigger workflows from inbound messages using Google OAuth.
+  </Card>
+  <Card title="Google Drive" icon="google-drive" href="/integrations/google-drive">
+    Upload, move, search, and manage files. Shared Google OAuth connection with Gmail.
+  </Card>
+  <Card title="Telegram" icon="telegram" href="/integrations/telegram">
+    Automate your personal Telegram account — read messages, send replies, and react to channel activity.
+  </Card>
+  <Card title="GitHub" icon="github" href="/integrations/github">
+    Trigger workflows from issues, PRs, and pushes. Create issues, search code, and more.
+  </Card>
+</CardGroup>
+
+Additional integrations are available through **Composio-powered connectors**, including Google Calendar, Google Docs, Google Sheets, and Instagram. These appear alongside native integrations on the Integrations page and connect the same way.
+
+<Note>
+  **One connection for Google.** A single Google OAuth authorization covers both Gmail and Google Drive. If you've already connected Gmail, Google Drive is available automatically — and vice versa.
+</Note>
+
+## Using Integrations in Workflows
+
+You don't need to configure integrations manually inside each workflow. When you describe what you want in **AI Core**, just mention the app and the agent figures out the rest. For example:
+
+> "When I receive a Gmail message with the label 'invoice', save the attachment to my Drive folder called 'Accounting'."
+
+The agent uses your connected credentials automatically. If a required integration isn't connected yet, AI Core will prompt you to connect it before activating the workflow.
+
+## Managing Connected Apps
+
+To view, test, or disconnect your integrations, go to **Settings → Integrations**. From there you can:
+
+- See which apps are currently connected
+- Test a connection to confirm it's working (`POST /api/integrations/[slug]/test`)
+- Disconnect an app when you no longer need it
+
+<Warning>
+  **Disconnecting an app pauses dependent automations.** Any active workflow that relies on a disconnected integration will stop running until you reconnect the app. Review your workflows before disconnecting to avoid unexpected interruptions.
+</Warning>
+
+## Permissions
+
+Each integration requests only the scopes it needs to perform its supported actions. During the OAuth flow, you can review the exact permissions being requested before you approve them. Atmet never requests broader access than what the integration requires.

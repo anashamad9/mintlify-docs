@@ -1,0 +1,106 @@
+---
+title: "Automations: Triggers, Schedules, and Always-On Runs"
+sidebarTitle: "Automations"
+description: "Understand how Atmet automations work — from trigger types and schedules to 24/7 execution, Telegram webhooks, and run monitoring."
+---
+
+Automations are the persistent backend objects that power every workflow in Atmet. While a workflow is what you see and manage in the dashboard, the automation is what actually runs — listening for triggers, executing steps, and logging results around the clock. Unlike a one-time manual action, an active automation runs continuously without you needing to be logged in or take any action. This page explains how automations are structured, what triggers them, and how to monitor and maintain them.
+
+## Automation lifecycle
+
+Every automation moves through a clear set of states from the moment it's created to when it's either paused or finished:
+
+```
+Draft → Active (Running) → Paused / Completed
+```
+
+- **Draft** — the automation has been defined but not yet activated. It won't execute until you activate it.
+- **Active (Running)** — the automation is live and listening for its trigger. It executes automatically every time the trigger condition is met.
+- **Paused** — the automation has been temporarily deactivated. It retains its configuration and can be reactivated at any time.
+- **Completed** — the automation finished a one-time run and is no longer listening for triggers.
+
+## Trigger types
+
+Every automation needs a trigger — the event or condition that tells it when to run. Atmet supports three types:
+
+<CardGroup cols={1}>
+  <Card title="Event trigger" icon="bolt">
+    Fires when something happens in a connected app. Examples include a new email arriving in Gmail, a new file being added to Google Drive, or a new message arriving in a Telegram chat.
+
+    When you set up an event trigger, you can also configure **filters** to narrow when the automation fires — for example, only Gmail messages that carry a specific label, or only Drive files added to a particular folder.
+  </Card>
+  <Card title="Schedule trigger" icon="clock">
+    Fires on a time-based schedule you define. Examples include every hour, every weekday at 9am, or on the first day of each month.
+
+    Set the schedule using the **schedule picker** in AI Core when you build the workflow. Schedules are stored with their own IDs and cron expressions, and you can review or update them from the workflow's settings panel.
+  </Card>
+  <Card title="Manual trigger" icon="hand-pointer">
+    Runs the automation once, on demand, from the **Workflows** dashboard. Use a manual trigger to test your automation before enabling an event or schedule trigger, or to run a one-off task whenever you choose.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Always test your automation with a **manual trigger** first. This lets you review the full run log — including every step's input and output — before the automation starts firing on real events or a live schedule.
+</Tip>
+
+## Always-on execution
+
+Once you activate an event or schedule automation, it runs 24/7 on Atmet's execution engine — whether you're logged in or not. The engine executes the saved workflow definition deterministically: it follows the exact steps the AI agent compiled at design time, in the same order, every single run. The AI agent is not involved at execution time and does not re-plan the workflow on each run. This makes your automations fast, predictable, and auditable.
+
+<Warning>
+  Automations rely on authorized connections to your integrated apps. If an app authorization expires or is revoked — for example, if you change your Gmail password or disconnect an integration — the automation will fail when it tries to access that app. Check the **Connected apps** section of your workspace settings regularly and reauthorize any connections that have lapsed.
+</Warning>
+
+## Automation status
+
+The status you see on the Workflows dashboard maps directly to the automation's state:
+
+| Dashboard status | Automation state | What it means |
+|---|---|---|
+| **Running** | Active | Listening for its trigger and executing on every match |
+| **In Review** | Draft / Paused | Defined but not yet activated, or temporarily paused |
+| **Done** | Completed | Finished a one-time run; no longer listening |
+
+## Schedules
+
+Schedule triggers are managed as standalone objects linked to their automation. Each schedule has:
+
+- A unique **ID**
+- A **cron expression** that defines when it fires (e.g., `0 9 * * 1-5` for weekdays at 9am)
+- A link to the parent automation
+
+You create schedules through the AI Core schedule picker during workflow setup. To review, update, or remove a schedule after activation, open the workflow detail page and navigate to its **Settings** panel.
+
+## Telegram webhooks
+
+When you set up a Telegram event trigger — for example, "run this automation when a new message arrives in my Telegram channel" — Atmet automatically configures a webhook to receive those messages. You don't need to set up the webhook manually; AI Core handles it during the workflow build conversation.
+
+Once the webhook is active, Telegram delivers new messages directly to Atmet's execution engine, which fires the automation immediately on each delivery.
+
+## Monitoring runs
+
+Every automation run is recorded in the Workflows dashboard. Open any workflow and navigate to the **Run history** tab to see:
+
+- A list of every execution with its timestamp and overall status
+- A per-step breakdown showing the tool called, input data, output data, step status, and duration
+
+Use run history to confirm that your automation is working correctly and to pinpoint exactly which step caused an issue if something goes wrong.
+
+## Error handling
+
+If any step in an automation fails, the entire run is marked as **Failed** and execution stops at the failing step. To recover:
+
+<Steps>
+  <Step title="Open the run log">
+    Go to the Workflows dashboard, open the affected workflow, and click the failed run in the **Run history** tab.
+  </Step>
+  <Step title="Identify the failing step">
+    Find the step marked as failed and read the error message. Common causes include expired app authorizations, missing files, or invalid input data.
+  </Step>
+  <Step title="Fix the underlying issue">
+    Resolve the root cause — for example, reconnect the affected integration in **Connected apps**, update a file reference, or adjust a filter value.
+  </Step>
+  <Step title="Re-run manually">
+    Once the issue is resolved, trigger the automation manually from the Workflows dashboard to confirm it completes successfully before relying on the event or schedule trigger again.
+  </Step>
+</Steps>

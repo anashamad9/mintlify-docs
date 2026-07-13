@@ -1,0 +1,174 @@
+---
+title: "Core Concepts: How Atmet Thinks and Acts"
+sidebarTitle: "Concepts"
+description: "Learn how Atmet models workflows, triggers, skills, and workspace memory — the building blocks behind every automation you create."
+---
+
+Every automation you build in Atmet is made up of a small set of composable concepts. Understanding how these pieces fit together helps you design better workflows, troubleshoot faster, and get more out of AI Core. This page covers each concept in plain terms.
+
+---
+
+## Workflows
+
+A workflow is a saved automation definition. It describes a trigger (what starts the automation), a sequence of steps (what the agent does), and an expected output or outcome.
+
+Once activated, a workflow runs unattended every time its trigger fires — whether you're logged in or not. You can have as many active workflows as you need, and each one runs independently.
+
+Workflows exist in one of three states:
+
+| State | Meaning |
+|---|---|
+| **Active** | Running and responding to triggers |
+| **In Review** | Drafted by the agent, awaiting your confirmation |
+| **Completed** | A run has finished (applies to individual run records) |
+
+<Note>
+  Workflows are not scripts. The AI agent interprets the goal behind each step, which means it can adapt to minor changes in your app data — like a renamed folder or a slightly different email format — without requiring you to update the workflow manually.
+</Note>
+
+---
+
+## Triggers
+
+A trigger is the event that starts a workflow. Every workflow has exactly one trigger. Atmet supports three trigger types:
+
+- **App event** — something happens in a connected app. For example: a new email arrives in Gmail, a file is added to a Google Drive folder, or a new message appears in a Telegram channel.
+- **Schedule** — the workflow runs on a time-based cadence. You can specify a simple interval (every hour, every day at 9 AM) or a cron expression for precise scheduling.
+- **Manual** — you start the workflow yourself, on demand, from the Workflows page or AI Core.
+
+When you describe a workflow in AI Core, the agent identifies the most appropriate trigger type and asks for any specifics it needs (which Gmail label, which Drive folder, what schedule) through a contextual input panel.
+
+---
+
+## Steps
+
+Steps are the individual actions the agent takes inside a workflow after the trigger fires. Each step represents a discrete operation — fetching data, transforming it, calling an API, generating content, or sending a message.
+
+Examples of steps:
+
+- Fetch the body and attachments from a Gmail message
+- Extract line items from a PDF invoice using AI
+- Create a new row in a Google Sheet
+- Send a summary to a Telegram channel
+- Generate a reply draft using a custom writing skill
+
+Steps run in sequence by default. The agent logs each step's inputs, outputs, status, and duration so you can inspect exactly what happened in any given run.
+
+<Note>
+  The agent determines which steps are needed based on your plain-language description. You don't define steps manually — you describe the outcome, and the agent figures out the path.
+</Note>
+
+---
+
+## Skills
+
+Skills are reusable AI capability modules that you can attach to workflows. Instead of re-describing the same instructions every time, you define them once as a skill and reference them across as many workflows as you like.
+
+**Skill scopes:**
+
+- **System skills** — built-in capabilities provided by Atmet (summarization, extraction, classification, and more).
+- **Workspace skills** — created and shared by your team. Any member can use them in their workflows.
+- **Personal skills** — created by you, visible only to you.
+
+**Creating a skill:** You can create a skill from a markdown file, an uploaded folder of reference documents, or directly from an AI Core conversation. Once saved, the skill appears in the Skills library and can be referenced by name when you describe new workflows.
+
+**Skill categories include:** Writing, Research, Analysis, Data, Automation, Productivity, Communication, Sales, Marketing, Support, Engineering, Finance, Operations, Legal, and HR.
+
+<Tip>
+  If you find yourself giving the same instructions in multiple workflows — like "respond in our brand voice" or "classify by urgency" — turn those instructions into a workspace skill. Your whole team benefits, and updates propagate everywhere the skill is used.
+</Tip>
+
+---
+
+## AI Core
+
+AI Core is the conversational interface at the heart of Atmet. You open it, describe what you want to automate, and the agent takes it from there.
+
+During the workflow-building conversation, the agent may ask follow-up questions to resolve ambiguity: which email label to watch, which Drive folder to write to, what the message template should say. These questions appear as focused input panels — not a wall of form fields — so you answer only what's actually needed.
+
+You can also use AI Core to iterate on existing workflows ("add a step that also notifies me on Telegram"), debug a run ("why did this step fail?"), or explore what's possible with a connected app ("what can you do with my Google Drive?").
+
+<Note>
+  AI Core is not a chatbot that gives you instructions to follow. It is an agent that takes action on your behalf, inside your connected apps, based on what you describe.
+</Note>
+
+---
+
+## Generative UI
+
+When the agent needs information from you to complete a workflow definition, it doesn't ask a generic open-ended question. Instead, it renders a minimal, context-aware input panel inline in the conversation — a **Generative UI** component.
+
+Examples of generative UI panels:
+
+- **File picker** — select a specific Google Drive file or folder
+- **Contact picker** — choose an email address from your Gmail contacts
+- **Chat picker** — select a Telegram channel or conversation
+- **Schedule picker** — set a time, interval, or cron expression
+- **Confirmation panel** — review a sensitive action before it's added to the workflow
+
+These panels are lightweight and purpose-built for the question at hand. They are never full app embeds. Once you respond, the agent incorporates your answer and continues building the workflow.
+
+---
+
+## Workspace Memory
+
+Workspace memory is the shared context that persists across all agents and workflows in your workspace. It includes uploaded files, previous decisions, app preferences, and business-specific knowledge you've provided over time.
+
+When the agent encounters something it could learn from — like the structure of your invoice files, the tone of your communications, or the naming convention for your Drive folders — it can store that understanding in workspace memory and apply it to future workflows automatically.
+
+<Note>
+  Workspace memory means you don't have to re-explain your business context every time you build a new workflow. The agent accumulates knowledge about how your team works and uses it to make better decisions.
+</Note>
+
+---
+
+## Integrations
+
+Integrations are the connected apps that Atmet can read from and act on. Each integration has:
+
+- **Auth type** — how Atmet authenticates: OAuth (Google, GitHub, Telegram) or API key (OpenAI and others).
+- **Triggers** — events the integration can listen for (new email received, new file uploaded, new commit pushed).
+- **Actions** — things the agent can do using that integration (send an email, create a file, post a message).
+
+Current alpha integrations include Gmail, Google Drive, Telegram (via personal account), GitHub, and OpenAI (bring your own API key). Additional connectors are available through Composio.
+
+<CardGroup cols={2}>
+  <Card title="Gmail" icon="envelope" href="/integrations/gmail">
+    Trigger on new emails, send replies, manage labels, and extract attachments.
+  </Card>
+  <Card title="Google Drive" icon="google-drive" href="/integrations/google-drive">
+    Watch folders, create and update files, and move documents between locations.
+  </Card>
+  <Card title="Telegram" icon="telegram" href="/integrations/telegram">
+    Send and receive messages on personal accounts via MTProto.
+  </Card>
+  <Card title="GitHub" icon="github" href="/integrations/github">
+    React to commits, issues, and pull requests, or open new ones programmatically.
+  </Card>
+</CardGroup>
+
+---
+
+## Human Approval
+
+For any action that is sensitive or has real-world consequences — sending an email, posting a message, making a payment — Atmet pauses and asks for your explicit confirmation before adding that step to the workflow.
+
+This happens once, at design time, before the workflow is activated. The agent presents the action in plain language: "This step will send an email from your Gmail account to the address extracted from the invoice." You approve or reject it, and the workflow is updated accordingly.
+
+<Warning>
+  Human approval is a design-time checkpoint, not a run-time pause. Once you approve a sensitive action and activate the workflow, it will execute that action automatically on every future trigger. Review the workflow carefully before activating if it includes outbound actions.
+</Warning>
+
+---
+
+## Run History
+
+Every time a workflow runs, Atmet records a complete log of the execution. For each step in the run, you can see:
+
+- **Tool called** — which integration or skill was invoked
+- **Input** — what data the agent passed to that step
+- **Output** — what the step returned
+- **Status** — success, failure, or skipped
+- **Duration** — how long the step took
+
+Run history is available in the **Workflows** section. Select any workflow, then select a run to inspect it step by step. This is the fastest way to understand why a workflow behaved unexpectedly or to verify that everything ran as intended.

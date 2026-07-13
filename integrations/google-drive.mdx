@@ -1,0 +1,97 @@
+---
+title: "Google Drive Integration: File Automation in Atmet"
+sidebarTitle: "Google Drive"
+description: "Connect Google Drive to Atmet and automate file uploads, searches, folder management, and more — directly from your AI workflows."
+---
+
+The Google Drive integration gives your Atmet agents the ability to read, organize, and write files in your Drive. You can trigger workflows when files change, automatically save attachments from emails, organize documents into folders, and search your Drive from within any workflow. This page covers how to connect Drive, the triggers and actions available, and how the built-in file picker makes workflow building faster.
+
+## Connecting Google Drive
+
+Google Drive uses the same **Google OAuth 2.0** connection as Gmail.
+
+<Note>
+  **Shared Google connection.** If you've already connected Gmail, Google Drive is available immediately — no additional authorization needed. A single Google OAuth approval covers both services. You only need to follow the steps below if you haven't connected a Google account yet.
+</Note>
+
+<Steps>
+  <Step title="Open the Integrations page">
+    Go to `/integrations` in the sidebar and find **Google Drive**.
+  </Step>
+  <Step title="Click Connect">
+    Click **Connect** to open the Google authorization popup. If you've already authorized Google for Gmail, Drive activates automatically and you're done.
+  </Step>
+  <Step title="Sign in and grant permissions">
+    Select your Google account and approve the requested Drive permissions. Atmet requests only the scopes it needs to perform the supported file actions.
+  </Step>
+  <Step title="Return to Atmet">
+    Google redirects you back to Atmet. Google Drive is now connected and ready to use in your workflows.
+  </Step>
+</Steps>
+
+## Triggers
+
+| Trigger | Description | Details |
+|---------|-------------|---------|
+| **File Changed** | Fires when a file in your Drive is created or modified. | Atmet watches for changes using the Drive changes API. You can scope the watch to a specific folder. |
+
+Use this trigger to kick off workflows whenever a new file lands in a watched folder — for example, when a client uploads a contract to a shared Drive folder.
+
+## Actions
+
+| Action | Description | Key Input Fields |
+|--------|-------------|-----------------|
+| **Find file** | Search for a file by name or query. | `query`, `file_name`, `parent_folder_id`, `max_results` |
+| **Get file by ID** | Retrieve a file's metadata and content using its ID. | `file_id`, `includeProperties` |
+| **Get file from path** | Look up a file using its full Drive path. | `path` |
+| **List files** | List files in a folder, optionally filtered by query. | `query`, `parent_folder_id`, `max_results`, `page_token` |
+| **Find or create folder** | Return an existing folder by name, or create it if it doesn't exist. | `folder_name`, `parent_folder_id` |
+| **Create folder** | Create a new folder in Drive. | `folder_name`, `parent_folder_id` |
+| **Upload file** | Upload a new file to Drive. | `name`, `parent_folder_id`, `content`, `mime_type` |
+| **Copy file** | Duplicate a file within Drive. | `file_id`, `name`, `parent_folder_id` |
+| **Move file** | Move a file to a different folder. | `file_id`, `new_parent_folder_id` |
+| **Delete file** | Permanently delete a file. | `file_id` |
+| **Update file** | Replace or update a file's content or metadata. | `file_id`, `content`, `name`, `mime_type` |
+
+## File Picker
+
+When you build a workflow in **AI Core** that involves Google Drive, the agent opens an interactive **file picker panel** alongside the workflow builder. The file picker uses your Drive's file list to let you browse folders, select files, and drop them directly into action fields — no copying and pasting file IDs required.
+
+This is especially useful when configuring actions like **Upload file** (picking a destination folder) or **Find file** (choosing a search scope).
+
+## Example Workflow
+
+**Save all email attachments labeled "invoice" from Gmail to a specific Drive folder.**
+
+<Steps>
+  <Step title="Set the trigger">
+    Use the **Gmail → New Gmail Message Received** trigger with `query: "label:invoice has:attachment"` so the workflow fires only on labeled emails that include an attachment.
+  </Step>
+  <Step title="Fetch the full message">
+    Use **Gmail → Fetch message by ID** to retrieve the full message content and extract the attachment.
+  </Step>
+  <Step title="Find or create the target folder">
+    Use **Google Drive → Find or create folder** with `folder_name: "Invoices"` to ensure your destination folder exists.
+  </Step>
+  <Step title="Upload the attachment">
+    Use **Google Drive → Upload file** to save the attachment into the `Invoices` folder, using the email subject and date as the file name.
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+<Accordion title="I get a 'file not found' error even though the file exists">
+  This usually means the `file_id` or `path` you're passing doesn't match the file in your Drive. Use the **Find file** or **List files** action first to confirm the exact file ID, then pass that value to the action that's failing.
+</Accordion>
+
+<Accordion title="The trigger isn't firing when files change">
+  Check that the watched folder is correct and that the file is being added to (or modified within) that specific folder. Changes to files in subfolders may not propagate unless the watch scope includes nested folders.
+</Accordion>
+
+<Accordion title="I'm getting quota or rate limit errors">
+  Google Drive enforces API quotas. If your workflow processes a large number of files in a short window, you may hit these limits. Add a delay step between file operations, or batch your workflow to process files in smaller groups. You can also check your quota usage in the [Google Cloud Console](https://console.cloud.google.com/).
+</Accordion>
+
+<Accordion title="The file picker isn't showing my files">
+  If the file picker is empty or missing files, your Google connection may need to be refreshed. Go to **Settings → Integrations**, disconnect Google Drive (or Gmail), and reconnect. The picker will reload after re-authorization.
+</Accordion>

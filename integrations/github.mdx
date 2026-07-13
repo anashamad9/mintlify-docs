@@ -1,0 +1,75 @@
+---
+title: "GitHub Integration: Automate Your Dev Workflows"
+sidebarTitle: "GitHub"
+description: "Connect GitHub to Atmet and trigger automated workflows from issues, pull requests, pushes, and new repositories in your org."
+---
+
+The GitHub integration lets your Atmet agents respond to activity across your repositories and organization. You can trigger workflows when a new issue is opened, a pull request is submitted, commits are pushed, or a new repository is created — then take action automatically, from creating issues to notifying teammates on Telegram. This page covers how to connect GitHub, the triggers and actions available, and example workflows to get you started.
+
+## Connecting GitHub
+
+GitHub uses **OAuth**. Atmet never handles your GitHub password — you authorize through GitHub's own consent screen.
+
+<Steps>
+  <Step title="Open the Integrations page">
+    Go to `/integrations` in the sidebar and find **GitHub**.
+  </Step>
+  <Step title="Click Connect">
+    Click the **Connect** button to open the GitHub authorization popup.
+  </Step>
+  <Step title="Authorize Atmet">
+    Review the requested permissions and click **Authorize**. If you want to automate workflows for an organization (not just your personal repos), make sure to grant access to the relevant organization during this step.
+  </Step>
+  <Step title="Return to Atmet">
+    GitHub redirects you back to Atmet. GitHub is now connected and available in AI Core.
+  </Step>
+</Steps>
+
+<Tip>
+  During the OAuth flow, GitHub asks which organizations you want to grant access to. If you plan to automate workflows on **organization repositories** — like monitoring issues across a team's repos — click **Grant** next to each organization before approving. You can update these permissions later from your [GitHub Authorized OAuth Apps settings](https://github.com/settings/applications).
+</Tip>
+
+## Triggers
+
+| Trigger ID | Name | Description |
+|------------|------|-------------|
+| `GITHUB_NEW_REPO_EVENT` | New Repository Created | Fires when a new repository is created in your organization. |
+| `GITHUB_NEW_ISSUE_EVENT` | New Issue | Fires when a new issue is opened in a repository. |
+| `GITHUB_NEW_PULL_REQUEST_EVENT` | New Pull Request | Fires when a new pull request is opened in a repository. |
+| `GITHUB_NEW_COMMIT_PUSH_EVENT` | New Commit Push | Fires when one or more commits are pushed to a branch. |
+
+## Actions
+
+| Action ID | Name | Description | Key Input Fields |
+|-----------|------|-------------|-----------------|
+| `GITHUB_CREATE_AN_ISSUE` | Create an issue | Open a new issue in a repository. | `title`, `body`, `owner`, `repo`, `labels`, `assignees` |
+| `GITHUB_CREATE_A_PULL_REQUEST` | Create a pull request | Open a new PR between branches. | `title`, `body`, `owner`, `repo`, `head`, `base` |
+| `GITHUB_STAR_A_REPOSITORY` | Star a repository | Star a repo from your account. | `owner`, `repo` |
+| `GITHUB_LIST_GITHUB_ISSUE_COMMENTS` | List issue comments | Retrieve all comments on an issue. | `owner`, `repo`, `issue_number` |
+| `GITHUB_CREATE_A_REPLY_FOR_A_REVIEW_COMMENT` | Reply to review comment | Post a reply to a pull request review comment. | `owner`, `repo`, `pull_number`, `comment_id`, `body` |
+| `GITHUB_SEARCH_GITHUB_CODE` | Search code | Search across repositories using GitHub's code search. | `query` |
+
+## Example Workflows
+
+**Triage new bug issues automatically.**
+Use the **New Issue** trigger filtered to issues labeled `bug`. When one arrives, use **Create an issue** to open a linked tracking issue in your internal repo, and then use **Telegram → Send message** to notify your team channel with the issue title and link.
+
+**Post a PR summary to Telegram when a PR is opened.**
+Use the **New Pull Request** trigger on your main repo. When it fires, pass the PR title, description, and diff URL to AI Core to generate a plain-English summary, then send it to your team's Telegram group with **Telegram → Send message**.
+
+**Auto-label new repositories.**
+Use the **New Repository Created** trigger in your org. When a new repo appears, use **Create an issue** to open a setup checklist issue in that repo automatically, ensuring every new project starts with the same onboarding steps.
+
+## Troubleshooting
+
+<Accordion title="Triggers aren't firing for my organization's repositories">
+  This is almost always a missing org-level permission. During the GitHub OAuth flow, you need to explicitly grant Atmet access to each organization. Go to **Settings → Integrations**, disconnect GitHub, and reconnect — this time clicking **Grant** next to your organization on the GitHub consent screen before approving.
+</Accordion>
+
+<Accordion title="The trigger fired once but stopped working">
+  Check that your workflow is still activated and that the GitHub OAuth token hasn't been revoked. You can verify Atmet's access in your [GitHub Authorized OAuth Apps settings](https://github.com/settings/applications). If the token was revoked, go to **Settings → Integrations** and reconnect GitHub.
+</Accordion>
+
+<Accordion title="I need to reauthorize GitHub">
+  Go to **Settings → Integrations**, find GitHub, and click **Reconnect**. Complete the OAuth flow again. If you need to add or remove organization access, this is also the right time to adjust those permissions on the GitHub consent screen.
+</Accordion>

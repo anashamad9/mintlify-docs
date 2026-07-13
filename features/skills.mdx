@@ -1,0 +1,138 @@
+---
+title: "Skills: Reusable AI Capabilities for Your Team"
+sidebarTitle: "Skills"
+description: "Create, organize, and reuse named AI capability modules — from writing and research to sales and engineering — across all your workflows."
+---
+
+Skills are reusable AI capability modules that give the Atmet agent specialized knowledge or instructions for a particular domain or task. Instead of re-explaining the same context every time you build a workflow, you define it once as a skill and the agent draws from it automatically. This page explains what skills are, the different scopes and categories available, how to create a skill, and how to use skills inside your workflows.
+
+## What is a skill?
+
+A skill is a named, reusable module containing instructions, reference knowledge, or a combination of both. Think of it as a saved prompt template or knowledge base that the agent can consult whenever it's relevant. For example, a **Sales Outreach** skill might contain your tone-of-voice guidelines and your product's key value propositions — attach it to a workflow and the agent uses that context to draft personalized outreach emails without you spelling it out each time.
+
+Skills can be as narrow as a single document or as broad as an entire folder of reference files.
+
+## Skill scopes
+
+Every skill has a scope that controls who can see and use it:
+
+<CardGroup cols={3}>
+  <Card title="System" icon="building">
+    Built-in skills provided by Atmet. Available to every user on the platform. System skills cover common tasks and best practices across all categories.
+  </Card>
+  <Card title="Workspace" icon="users">
+    Created by someone on your team and shared with all workspace members. Use workspace skills to standardize how your team's agents behave across shared workflows.
+  </Card>
+  <Card title="Personal" icon="user">
+    Created by you and visible only to you. Personal skills are ideal for individual preferences, private knowledge bases, or experimental instruction sets.
+  </Card>
+</CardGroup>
+
+<Note>
+  System skills are read-only. You cannot edit or delete them, but you can duplicate a system skill to your personal or workspace scope and customize the copy.
+</Note>
+
+## Skill categories
+
+Skills are organized into 15 categories to help you find the right capability quickly:
+
+| Category | Category | Category |
+|---|---|---|
+| Writing | Research | Analysis |
+| Data | Automation | Productivity |
+| Communication | Sales | Marketing |
+| Support | Engineering | Finance |
+| Operations | Legal | HR |
+
+When you create or search for a skill, you can filter by category to narrow the list.
+
+## Creating a skill
+
+You can create a skill in three ways depending on where your knowledge or instructions live:
+
+<Tabs>
+  <Tab title="From a file">
+    Upload a single Markdown (`.md`) file that contains the skill's instructions or reference knowledge.
+
+    <Steps>
+      <Step title="Open the Skills page">
+        Navigate to **Skills** in the left sidebar.
+      </Step>
+      <Step title="Click New Skill">
+        Click the **New Skill** button to open the creation dialog.
+      </Step>
+      <Step title="Choose File upload">
+        Select **Upload file** and choose your `.md` file from your computer.
+      </Step>
+      <Step title="Name and categorize">
+        Give the skill a clear name, select the appropriate category, and choose a scope (Personal or Workspace).
+      </Step>
+      <Step title="Save">
+        Click **Create Skill**. The skill is immediately available to attach to workflows.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="From a folder">
+    Upload a folder of files to create a multi-document skill. Atmet packages all the files together so the agent can reference any of them when the skill is active.
+
+    <Steps>
+      <Step title="Open the Skills page">
+        Navigate to **Skills** in the left sidebar.
+      </Step>
+      <Step title="Click New Skill">
+        Click the **New Skill** button to open the creation dialog.
+      </Step>
+      <Step title="Choose Folder upload">
+        Select **Upload folder** and pick the folder from your computer. All supported files inside the folder are included.
+      </Step>
+      <Step title="Name and categorize">
+        Give the skill a name, select its category, and choose a scope.
+      </Step>
+      <Step title="Save">
+        Click **Create Skill**. The agent treats the entire folder as a single searchable knowledge base.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="From a chat">
+    Generate a skill directly from an AI Core conversation. This is the fastest option when you want to capture something you've already described to the agent.
+
+    <Steps>
+      <Step title="Open AI Core">
+        Navigate to **AI Core** and start a new chat.
+      </Step>
+      <Step title="Describe the skill">
+        Tell the agent what you want the skill to do — for example, "Create a skill that knows how to write customer support replies in a friendly, concise tone using our refund policy."
+      </Step>
+      <Step title="Confirm the skill definition">
+        The agent generates a skill definition and asks you to review it. Adjust any details in the conversation.
+      </Step>
+      <Step title="Save the skill">
+        Confirm, and the agent saves the skill to your chosen scope. It appears immediately on the Skills page.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<Tip>
+  Write clear, specific descriptions for your skills. The agent uses the skill name and description to decide when to apply a skill automatically — a vague name like "My Skill" makes it harder for the agent to select the right one.
+</Tip>
+
+## Connecting apps to a skill
+
+Some skills work best when linked to a specific integration. For example, a **CRM Research** skill that looks up contact history needs access to your CRM. When creating or editing a skill, use the **Connected apps** section of the skill dialog to link the relevant integrations. The agent will use those app connections whenever the skill is active in a workflow.
+
+## Using skills in workflows
+
+When building a workflow in AI Core, you can direct the agent to use a specific skill in two ways:
+
+- **Mention it by name** — say "Use my Sales Outreach skill to draft the email" and the agent will apply that skill's instructions to the relevant step.
+- **Let the agent choose** — if your workspace has relevant skills, the agent automatically selects the best match based on the task. You can confirm or override its choice during the conversation.
+
+## Managing skills
+
+From the **Skills** page you can:
+
+- **Search** by name to find a skill quickly
+- **Filter** by category or scope to browse a subset of your library
+- **Edit** personal and workspace skills by clicking the skill and updating its files, name, or category
+- **Delete** personal and workspace skills you no longer need using the action menu on the skill card

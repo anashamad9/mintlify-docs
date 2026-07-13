@@ -1,0 +1,89 @@
+---
+title: "Manage Your Automated Workflows in Atmet"
+sidebarTitle: "Workflows"
+description: "View, search, filter, and monitor all your automated workflows from the Workflows dashboard, and drill into run history for each one."
+---
+
+The Workflows page is your central dashboard for every automation you've built in Atmet. It lists all your workflows with their current status, lets you search and filter to find what you need, and gives you one-click access to detailed run history and configuration for each workflow. This page explains how to navigate the dashboard, understand workflow statuses, and keep your automations running smoothly.
+
+## Workflow statuses
+
+Every workflow displays a status badge so you can see its state at a glance:
+
+| Status | Meaning |
+|---|---|
+| **Running** | The workflow is active and listening for its trigger. It will execute automatically whenever the trigger condition is met. |
+| **In Review** | The workflow was drafted but has not been activated yet, or it has been paused. It will not run until you activate it. |
+| **Done** | The workflow completed a one-time run and is no longer listening for new triggers. |
+
+## Searching and filtering
+
+Use the **search bar** at the top of the Workflows page to find workflows by name or keyword. To narrow the list further, use the **status filter** to show only workflows in a specific state:
+
+- **All** — shows every workflow regardless of status
+- **Running** — shows only active, listening workflows
+- **In Review** — shows drafts and paused workflows
+- **Done** — shows completed one-time runs
+
+<Tip>
+  Give your workflows descriptive names when you create them — for example, "Invoice PDF → Google Drive" rather than "Workflow 1" — so you can find them quickly as your library grows.
+</Tip>
+
+## Opening a workflow
+
+Click any workflow card to open its detail page. The detail page shows:
+
+- **Step graph** — a visual map of every action in the workflow, from trigger to final output
+- **Run history** — a log of every time the workflow has executed
+- **Configuration** — the trigger settings, connected apps, and any schedule or webhook details
+
+## Run history
+
+Every time a workflow runs, Atmet logs the full execution. In the run history panel you can see each step with:
+
+- **Tool called** — which integration or action was invoked
+- **Input** — the data passed into the step
+- **Output** — the result returned by the step
+- **Status** — whether the step succeeded or failed
+- **Duration** — how long the step took to complete
+
+Use the run history to debug unexpected behavior. If a step failed, the log shows the exact error message so you know where to look.
+
+## Editing a workflow
+
+To change an existing workflow, you have two options:
+
+<Steps>
+  <Step title="Edit from AI Core">
+    Open AI Core, start a new chat or continue an existing one, and describe the change you want to make. Reference the workflow by name — for example, "Update my Invoice PDF workflow to also send me a Telegram notification."
+  </Step>
+  <Step title="Edit from the detail page">
+    Open the workflow detail page and use the edit controls to adjust the trigger, steps, or schedule directly.
+  </Step>
+</Steps>
+
+## Pausing and deleting
+
+To pause or remove a workflow, open the action menu by clicking the **⋯** icon on the workflow card:
+
+- **Pause** — sets the workflow to **In Review** status. The workflow stops listening for its trigger and will not run until you reactivate it.
+- **Delete** — permanently removes the workflow and stops all future runs.
+
+<Note>
+  Deleting a workflow is permanent and cannot be undone. All associated run history and configuration are removed. If you might want to use the workflow again, pause it instead.
+</Note>
+
+## Workflow status lifecycle
+
+Workflows move through a predictable lifecycle from creation to completion:
+
+```
+Draft (In Review) → Running → Done
+                 ↑         ↓
+                 └─ Paused ─┘
+```
+
+- A new workflow starts as a **draft** with **In Review** status until you activate it.
+- Once activated, it moves to **Running** and executes whenever its trigger fires.
+- Event-triggered and schedule-triggered workflows stay **Running** indefinitely until you pause or delete them.
+- One-time manual runs move to **Done** after a single execution.

@@ -1,0 +1,67 @@
+---
+title: "Workspace and Account Settings in Atmet"
+sidebarTitle: "Settings"
+description: "Configure your profile, workspace name, connected integrations, usage limits, and notification preferences from Atmet's settings."
+---
+
+Settings in Atmet give you control over both your personal account and the shared workspace your team works in. From updating your display name and avatar to managing connected apps and reviewing usage, everything you need to configure lives in one place. This page walks you through each section so you know exactly where to go.
+
+## Profile Settings
+
+Your profile controls how you appear to teammates inside the workspace.
+
+- **Display name** — update the name shown next to your activity and in the members list.
+- **Avatar** — upload a profile photo to make it easier for teammates to recognize you at a glance.
+
+To update your profile, go to **Settings → Profile**, make your changes, and save.
+
+## Workspace Settings
+
+Workspace-level settings apply to everyone in the workspace, not just your account.
+
+- **Workspace name** — rename the workspace to something that reflects its purpose (for example, a client name, product line, or team name).
+
+To update workspace settings, go to **Settings → General**.
+
+## Integrations
+
+The integrations page is your central hub for managing every app you've connected to Atmet.
+
+Navigate to **Settings → Integrations** to:
+
+- View all connected apps and their current authorization status
+- Test a connection to confirm it's working
+- Disconnect an app you no longer need
+
+Atmet supports connections to services including Gmail, Google Drive, Telegram, GitHub, and more. When an integration is authorized, your automations can interact with that service on your behalf.
+
+<Note>
+  If an integration stops working, it usually means the authorization credentials have expired or been revoked by the connected service. Go to **Settings → Integrations**, find the affected app, and re-authorize it to restore access. You won't need to reconfigure your automations — they'll pick up the refreshed credentials automatically.
+</Note>
+
+## Usage Limits
+
+The usage section shows how much of your plan you've consumed across key dimensions — automations, workflow runs, and workspace members.
+
+To check your usage, go to **Settings → Usage**. You'll see your current consumption measured against your plan limits.
+
+If you're approaching a limit and need more capacity, contact [Atmet support](mailto:support@atmetai.com) to discuss upgrading your plan.
+
+## Sound Preferences
+
+Atmet can play notification sounds when workflow events occur — for example, when an automation completes or encounters an error. You can toggle these sounds on or off to suit your working environment.
+
+To adjust sound preferences, go to **Settings → Notifications** and toggle the sound setting to your preference.
+
+## Security
+
+Keeping your workspace secure is straightforward with a few built-in controls:
+
+- **API keys** — manage programmatic access tokens from the dedicated API Keys page. See [API Keys](/workspace/api-keys) for full details.
+- **Connected app credentials** — when you authorize an integration, Atmet encrypts and stores the credentials securely. You will never see the raw token or secret again after the initial authorization — this is by design. If you need to update credentials, re-authorize the integration.
+
+## Switching Workspaces
+
+If your account belongs to more than one workspace, you can switch between them without logging out. Click the workspace switcher in the top of the sidebar to see all workspaces you're a member of, then select the one you want to work in.
+
+All API calls, automations, and agent context automatically reflect the active workspace after you switch.

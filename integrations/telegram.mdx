@@ -1,0 +1,99 @@
+---
+title: "Telegram Integration: Automate Your Telegram Account"
+sidebarTitle: "Telegram"
+description: "Connect your personal Telegram account to Atmet and automate messaging workflows across your DMs, groups, and channels."
+---
+
+The Telegram integration connects your **personal Telegram account** — not a bot — to Atmet. This means your agents can read and send messages exactly as you would, across every DM, group, and channel you have access to. Use it to trigger workflows from messages your audience sends you, auto-reply to inbound requests, or chain Telegram activity with any other integration in your stack.
+
+## What This Integration Is
+
+Unlike a Telegram bot, Atmet connects to your actual Telegram account using the MTProto protocol (Telegram's native User API). This gives the agent visibility into your real chats — the same ones you see when you open Telegram on your phone. There's no separate bot to create, no bot token to manage, and no need to add anything to your groups.
+
+This approach is what makes automations like "when someone messages my channel, reply with a generated image" possible. A bot can only see messages sent directly to it; your personal account can see everything you can see.
+
+<Warning>
+  **This integration has access to your full Telegram account.** Because Atmet connects as your personal account, the agent can read and send messages across all your accessible chats. To protect your account, Atmet encrypts your Telegram credentials at rest and never exposes them to the frontend or logs them anywhere. Your credentials are used only to execute the actions you explicitly define in your activated workflows.
+</Warning>
+
+## Connecting Telegram
+
+<Steps>
+  <Step title="Open the Integrations page">
+    Go to `/integrations` in the sidebar and select **Telegram**.
+  </Step>
+  <Step title="Enter your phone number">
+    Type your phone number in international format (for example, `+1 415 555 0100`). Atmet uses this to initiate the Telegram login flow.
+  </Step>
+  <Step title="Enter the verification code">
+    Telegram sends a one-time verification code to your Telegram app (or via SMS if you don't have the app active). Enter that code in Atmet.
+  </Step>
+  <Step title="Enter your 2FA password (if applicable)">
+    If you have Two-Step Verification enabled on your Telegram account, enter your Telegram password when prompted.
+  </Step>
+  <Step title="Connected">
+    Atmet establishes the session. Telegram is now connected and available in AI Core for building workflows.
+  </Step>
+</Steps>
+
+## Triggers
+
+| Trigger | Description | Filter Options |
+|---------|-------------|---------------|
+| **New Message** | Fires when a message arrives in any of your chats, groups, or channels. | Filter by specific chat, group, or channel; optionally filter by message content or keywords. |
+
+Atmet receives these events through MTProto live updates — there's no polling delay. Messages arrive in near real-time.
+
+## Actions
+
+| Action | Description |
+|--------|-------------|
+| **Send message** | Send a text message to any chat, group, or channel you have access to. |
+| **Read messages** | Retrieve recent messages from a specified chat. |
+
+## Chat Picker
+
+When you set up a Telegram trigger or action in **AI Core**, the agent opens a **chat picker panel** that lists all the chats, groups, and channels your account can see. Click the one you want to target — no need to look up chat IDs manually.
+
+## Flagship Workflow: Turn Channel Messages Into Personalized Emails
+
+One of the most powerful things you can do with the Telegram integration is build a fully automated response pipeline directly from your Telegram channel.
+
+<Steps>
+  <Step title="Trigger on new channel messages">
+    Use the **Telegram → New Message** trigger, filtered to your specific channel. The workflow fires every time someone posts a message.
+  </Step>
+  <Step title="Extract the email address">
+    Configure the agent to parse the message text and extract the email address the user included in their message.
+  </Step>
+  <Step title="Generate an image with OpenAI">
+    Use the **OpenAI** integration to call the image generation endpoint. Pass context from the message — the user's name, request, or any other detail — to personalize the generated image.
+  </Step>
+  <Step title="Send the email">
+    Use the **Gmail → Send email** action to deliver the generated image to the extracted email address, addressed personally to the user.
+  </Step>
+</Steps>
+
+This single workflow — Telegram trigger → extract data → OpenAI → Gmail send — runs automatically for every message, with no manual work on your part.
+
+<Info>
+  Atmet uses your Telegram account only for the actions explicitly defined in your activated workflows. The agent does not read, store, or act on any messages outside of the triggers and actions you configure.
+</Info>
+
+## Troubleshooting
+
+<Accordion title="I didn't receive a verification code">
+  Make sure you entered your phone number in full international format, including the country code (for example, `+44` for the UK). If you still don't receive the code, check that Telegram isn't blocked on your carrier, or try logging in on another device first to confirm the account is active.
+</Accordion>
+
+<Accordion title="I have 2FA enabled and the password isn't being accepted">
+  Atmet prompts for your Telegram Two-Step Verification password (not your phone unlock PIN or email password). This is the password you set inside Telegram under **Settings → Privacy and Security → Two-Step Verification**. If you've forgotten it, you'll need to reset it through Telegram directly before reconnecting.
+</Accordion>
+
+<Accordion title="Messages are being sent in my channel but the trigger isn't firing">
+  Check that your trigger is scoped to the correct chat. If you're filtering by a channel username or chat ID, make sure the value exactly matches what's in the chat picker. Also confirm that the workflow is activated — drafts don't run.
+</Accordion>
+
+<Accordion title="I need to reauthorize or switch to a different account">
+  Go to **Settings → Integrations**, find Telegram, and click **Disconnect**. Then reconnect with your preferred phone number. Note that disconnecting Telegram will pause any workflows that use it as a trigger or action until you reconnect.
+</Accordion>

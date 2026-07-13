@@ -1,0 +1,227 @@
+---
+title: "Troubleshoot Common Atmet Issues"
+sidebarTitle: "Troubleshooting"
+description: "Step-by-step fixes for common problems with Atmet automations, integrations, and account access — get unblocked fast."
+---
+
+This page walks you through fixes for the most common issues you might encounter with Atmet — from sign-in problems and automation failures to integration errors and skill configuration. Work through the relevant section below, and if the issue persists, reach out for help.
+
+<Info>
+  If you can't find a solution here, reach out via the in-app chat or email [support@atmetai.com](mailto:support@atmetai.com).
+</Info>
+
+## Authentication & Access
+
+<AccordionGroup>
+  <Accordion title="I can't sign in to my account">
+    <Steps>
+      <Step title="Double-check your credentials">
+        Confirm you're using the email address and password you registered with. Passwords are case-sensitive.
+      </Step>
+      <Step title="Reset your password">
+        If you're unsure of your password, go to [https://app.atmetai.com/forgot-password](https://app.atmetai.com/forgot-password), enter your email, and follow the reset link sent to your inbox.
+      </Step>
+      <Step title="Check your email verification status">
+        If you see a message saying your email isn't verified, check your inbox (and spam folder) for the original verification email. Use the **Resend verification** link on the sign-in page if needed.
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="I didn't receive my verification email">
+    <Steps>
+      <Step title="Check your spam folder">
+        Verification emails occasionally land in spam or junk. Search for an email from Atmet.
+      </Step>
+      <Step title="Resend the verification email">
+        On the sign-in page at [https://app.atmetai.com/sign-in](https://app.atmetai.com/sign-in), click **Resend verification** to trigger a new email.
+      </Step>
+      <Step title="Contact support if still not received">
+        If you've checked spam and resent the email with no luck, email [support@atmetai.com](mailto:support@atmetai.com) with the address you registered with.
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="My invite link isn't working">
+    Invite links expire after **7 days**. If your link has expired, contact the workspace admin who sent the original invite and ask them to resend it. If you're the admin and need help, contact [support@atmetai.com](mailto:support@atmetai.com).
+  </Accordion>
+</AccordionGroup>
+
+## Automations Not Running
+
+<AccordionGroup>
+  <Accordion title="My automation isn't triggering">
+    <Steps>
+      <Step title="Check the automation status">
+        Open the **Workflows** page and confirm the automation status shows **Running**. Automations in **Draft** or **Paused** state won't fire automatically.
+      </Step>
+      <Step title="Verify your integration is authorized">
+        Go to **Settings → Integrations** and confirm the app your trigger depends on is connected. A disconnected integration will silently prevent triggers from firing.
+      </Step>
+      <Step title="Review your trigger configuration">
+        Open the workflow and inspect the trigger settings. Ensure the event filter matches real events — for example, if you're filtering by a Gmail label, confirm that label is spelled exactly as it appears in Gmail.
+      </Step>
+      <Step title="Run the automation manually">
+        Click the **⋯** menu on the automation and select **Run now** to confirm the workflow steps execute correctly end-to-end.
+      </Step>
+      <Step title="Check the run history">
+        Open the workflow and review the run history for any error messages. Errors logged there usually point directly to the root cause.
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="My automation fails on a specific step">
+    <Steps>
+      <Step title="Find the failed run">
+        Open the workflow detail page and locate the failed run in the run history.
+      </Step>
+      <Step title="Identify the failing step and its error">
+        Click the failed run to expand the step-by-step log. Find the step that failed and read the error message carefully.
+      </Step>
+      <Step title="Apply the appropriate fix">
+        Common fixes depending on the error:
+        - **Disconnected integration** — re-authorize the app under **Settings → Integrations**
+        - **Invalid action input** — correct the input value (for example, check that a recipient email address is properly formatted)
+        - **Missing file or folder** — ensure the source file or folder your workflow references still exists in the connected app
+      </Step>
+      <Step title="Re-run to confirm">
+        After fixing the issue, use **Run now** to confirm the workflow completes successfully before relying on the automated trigger again.
+      </Step>
+    </Steps>
+
+    <Tip>
+      The run history logs every step, including inputs and outputs. Reading through the full log for a failed run is the fastest way to pinpoint exactly what went wrong.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="My scheduled automation isn't firing at the right time">
+    <Steps>
+      <Step title="Verify the cron expression">
+        Open the workflow trigger settings and confirm the schedule cron expression is correct. An off-by-one in the hour or day field is a common source of confusion.
+      </Step>
+      <Step title="Check the automation status">
+        The automation must have an **Active** status for schedules to fire.
+      </Step>
+      <Step title="Account for UTC time">
+        Atmet schedules run in **UTC**. If your expected run time is in a different timezone, convert accordingly. For example, 9:00 AM EST is 14:00 UTC.
+      </Step>
+    </Steps>
+  </Accordion>
+</AccordionGroup>
+
+## Integration Issues
+
+<AccordionGroup>
+  <Accordion title="My OAuth token has expired">
+    <Steps>
+      <Step title="Go to your integrations settings">
+        Navigate to **Settings → Integrations** and find the affected app.
+      </Step>
+      <Step title="Re-authorize the connection">
+        Click **Re-authorize** and complete the OAuth flow in the browser window that opens.
+      </Step>
+      <Step title="Confirm the connection is restored">
+        Once the flow completes, the integration status should update to connected. Re-run any affected automations to confirm they work.
+      </Step>
+    </Steps>
+
+    <Note>
+      One Google OAuth connection covers both Gmail and Google Drive. Re-authorizing Google restores access to both services at once.
+    </Note>
+  </Accordion>
+
+  <Accordion title="The wrong Google account is connected">
+    <Steps>
+      <Step title="Disconnect the existing Google integration">
+        Go to **Settings → Integrations**, find the Google connection, and click **Disconnect**.
+      </Step>
+      <Step title="Reconnect with the correct account">
+        Click **Connect** for Google again and, when the OAuth window opens, select or sign in with the correct Google account.
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="I'm not receiving the Telegram verification code">
+    <Steps>
+      <Step title="Confirm the phone number format">
+        Ensure you entered your full phone number including the country code (for example, `+1` for the US).
+      </Step>
+      <Step title="Check the Telegram app — not SMS">
+        The verification code is delivered as a message inside the **Telegram app itself**, not via SMS. Open Telegram on your phone or desktop and look for the code in your messages.
+      </Step>
+      <Step title="Check Telegram notifications">
+        If you have notifications silenced, open the Telegram app directly and look for an incoming message from Telegram with the code.
+      </Step>
+    </Steps>
+
+    <Warning>
+      Your Telegram personal account credentials are the most sensitive credential in Atmet. Only connect your Telegram account if you fully trust the workflows you've configured to use it.
+    </Warning>
+  </Accordion>
+
+  <Accordion title="Telegram is prompting for a 2FA cloud password">
+    This is expected behavior. If your Telegram account has Two-Step Verification (also called a cloud password) enabled, Atmet will prompt you to enter it during setup. Enter the cloud password you set in Telegram's Privacy and Security settings to complete the connection.
+  </Accordion>
+
+  <Accordion title="My API key is being rejected (401 or 403 error)">
+    <Steps>
+      <Step title="Check if the key has been revoked">
+        Go to **Settings → API Keys** and confirm the key is still listed and active. If it was deleted or revoked, generate a new one.
+      </Step>
+      <Step title="Verify the key belongs to the correct workspace">
+        API keys are scoped to a specific workspace. If you switched workspaces, generate a new key from the correct workspace's settings.
+      </Step>
+      <Step title="Replace the key in your integration">
+        Copy the new key and update it wherever you're using it (for example, in your OpenAI BYOK settings or an external API call in a workflow).
+      </Step>
+    </Steps>
+  </Accordion>
+</AccordionGroup>
+
+## Skills Issues
+
+<AccordionGroup>
+  <Accordion title="The agent isn't using my skill">
+    <Steps>
+      <Step title="Check the skill scope">
+        Open the skill settings and confirm the scope is set to **Workspace** if you want all team members to use it, or **Personal** if it's just for your own sessions. A personal-scoped skill won't be available in other users' workflows.
+      </Step>
+      <Step title="Reference the skill explicitly in AI Core">
+        In your AI Core conversation, mention the skill by name. The agent is more likely to apply it when you explicitly direct it to use that skill.
+      </Step>
+      <Step title="Review the skill description">
+        Open the skill and check that its description clearly states when and why the agent should use it. Vague descriptions make it harder for the agent to know when to apply the skill automatically.
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="My skill file upload failed">
+    <Steps>
+      <Step title="Check the file type">
+        Skill definitions must be **Markdown files** (`.md`). Other file types are not supported for skill creation.
+      </Step>
+      <Step title="Check the file size">
+        Very large files may fail to upload. If your file is large, split it into smaller, focused skill files and upload them separately.
+      </Step>
+    </Steps>
+  </Accordion>
+</AccordionGroup>
+
+## Performance
+
+<AccordionGroup>
+  <Accordion title="My workflow runs are very slow">
+    Some steps — particularly AI text generation or large Google Drive operations — take time by design. If a step consistently times out rather than just running slowly, check whether the connected app is hitting its own rate limits or whether the step can be simplified (for example, limiting the number of files processed in a single run).
+  </Accordion>
+
+  <Accordion title="I'm seeing rate limit errors from a connected app">
+    Each connected app enforces its own API rate limits independently of Atmet. To reduce rate limit errors:
+
+    - **Reduce run frequency** — increase the interval between scheduled runs in your trigger settings
+    - **Batch operations** — where possible, process items in batches rather than triggering a separate run for each item
+    - **Stagger workflows** — if you have multiple automations hitting the same app, offset their schedules so they don't run simultaneously
+
+    <Tip>
+      If rate limiting is a recurring issue for your use case, contact [support@atmetai.com](mailto:support@atmetai.com) — the team may be able to suggest workflow design changes that reduce API call volume.
+    </Tip>
+  </Accordion>
+</AccordionGroup>

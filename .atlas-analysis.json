@@ -1,0 +1,91 @@
+{
+  "projectType": "saas",
+  "projectName": "Atmet",
+  "projectDescription": "Atmet is an AI-powered automation platform that lets teams connect their business apps, describe workflows in plain language, and have an AI agent execute recurring tasks automatically.",
+  "theme": "luma",
+  "primaryColor": "#6B4EFF",
+  "lightColor": "#EEE9FF",
+  "darkColor": "#3B27CC",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "concepts"
+            ]
+          },
+          {
+            "group": "Core Features",
+            "pages": [
+              "features/ai-core",
+              "features/workflows",
+              "features/skills",
+              "features/automations"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/overview",
+              "integrations/gmail",
+              "integrations/google-drive",
+              "integrations/telegram",
+              "integrations/github"
+            ]
+          },
+          {
+            "group": "Workspace",
+            "pages": [
+              "workspace/members",
+              "workspace/settings",
+              "workspace/api-keys"
+            ]
+          },
+          {
+            "group": "Help",
+            "pages": [
+              "help/faq",
+              "help/troubleshooting"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "AI Core — conversational agent interface for describing and building workflows in plain language",
+    "Workflow automation — define multi-step automated workflows triggered by app events",
+    "Skills library — reusable AI capability modules (system, workspace, or personal scope)",
+    "Integrations — connect Gmail, Google Drive, Telegram, GitHub, and more via OAuth or API key",
+    "Generative UI — agent dynamically renders input panels (file pickers, contact fields, schedules) when it needs user input",
+    "Always-on execution — workflows run 24/7 on triggers without requiring user presence",
+    "Human approval checkpoints — sensitive or outbound actions require one-time approval before running",
+    "Workspace memory — shared context, files, and preferences persist across all agents in a workspace",
+    "AI model selection — choose the LLM that fits each workflow (fast automation vs. deep reasoning)",
+    "Team workspaces — invite members, manage roles, and share automations across a workspace"
+  ],
+  "publicApiSurface": [
+    "GET/POST /api/chats — list and create AI chat sessions",
+    "GET/POST/DELETE /api/chats/[id]/messages — manage messages in a chat",
+    "POST /api/chats/[id]/agent — invoke the AI agent in a chat",
+    "GET/POST /api/automations — list and create workflow automations",
+    "GET/PUT/DELETE /api/automations/[id] — manage a specific automation",
+    "GET/POST /api/skills — list and create skills",
+    "GET/PUT/DELETE /api/skills/[id] — manage a specific skill",
+    "GET/POST /api/integrations — list available integrations",
+    "POST /api/integrations/[slug]/connect — connect an integration",
+    "GET/POST /api/api-keys — manage workspace API keys",
+    "GET/POST /api/workspaces — list and create workspaces",
+    "POST /api/workspaces/[id]/members — invite workspace members",
+    "GET/POST /api/schedules — create scheduled workflow triggers",
+    "GET/POST /api/files — upload files to workspace memory",
+    "POST /api/auth/sign-up — create a new account",
+    "POST /api/auth/sign-in — authenticate",
+    "POST /api/auth/sign-out — end session"
+  ]
+}

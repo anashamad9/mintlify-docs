@@ -1,0 +1,116 @@
+---
+title: "Gmail Integration: Automate Your Email Workflows"
+sidebarTitle: "Gmail"
+description: "Connect Gmail to Atmet and automate sending, receiving, drafting, and organizing your email — triggered by real-time inbox events."
+---
+
+The Gmail integration lets your Atmet agents read, send, and manage email on your behalf. You can trigger workflows the moment a specific email arrives, automatically reply to threads, file attachments, create drafts, and much more. This page covers how to connect Gmail, the triggers and actions available, and how to get the most out of email automation.
+
+## Connecting Gmail
+
+Gmail uses **Google OAuth 2.0**. Atmet never sees your Google password — you authorize through Google's own sign-in flow and Atmet receives a scoped token.
+
+<Steps>
+  <Step title="Open the Integrations page">
+    Go to `/integrations` in the sidebar and find **Gmail**.
+  </Step>
+  <Step title="Click Connect">
+    Click the **Connect** button on the Gmail card to open the Google authorization popup.
+  </Step>
+  <Step title="Sign in and grant permissions">
+    Select your Google account and approve the requested permissions. Atmet requests the following scopes:
+
+    | Scope | What it allows |
+    |-------|---------------|
+    | `gmail.send` | Send email and manage sent messages on your behalf |
+    | `gmail.readonly` | Read messages, threads, labels, and drafts |
+  </Step>
+  <Step title="Return to Atmet">
+    After you approve, Google redirects you back to Atmet. Gmail is now connected and ready to use in workflows.
+  </Step>
+</Steps>
+
+<Note>
+  **One Google connection covers both Gmail and Google Drive.** If you connect Gmail, your Google Drive integration is automatically active — and the other way around. You only need to authorize Google once.
+</Note>
+
+## Triggers
+
+Use these triggers to start a workflow when something happens in your Gmail inbox.
+
+| Trigger ID | Name | Description | Key Config Options |
+|------------|------|-------------|-------------------|
+| `GMAIL_NEW_GMAIL_MESSAGE` | New Gmail Message Received | Fires when a new message arrives in your inbox. | `userId`, `labelIds`, `query` (Gmail search syntax), polling interval |
+| `GMAIL_EMAIL_SENT_TRIGGER` | Email Sent | Fires when you send an email from your account. | `query` (optional filter on sent message) |
+
+<Tip>
+  The `query` field on both triggers accepts full **Gmail search syntax** — the same search operators you use in Gmail itself. For example, use `from:invoices@acme.com has:attachment` to trigger only on messages from a specific sender that include an attachment. This is the most precise way to filter exactly the emails you care about.
+</Tip>
+
+## Actions
+
+Once a workflow is triggered, you can use any of the following actions to interact with Gmail.
+
+| Action | Description | Key Input Fields |
+|--------|-------------|-----------------|
+| **Fetch emails** | Retrieve a list of emails matching a query. | `query`, `label_ids`, `max_results` |
+| **Fetch message by ID** | Get a single email by its message ID. | `message_id` |
+| **Fetch message by thread ID** | Get all messages in a thread. | `thread_id` |
+| **Send email** | Send a new email from your account. | `recipient_email`, `subject`, `body`, `cc`, `bcc`, `attachment` |
+| **Create email draft** | Save a draft without sending it. | `recipient_email`, `subject`, `body`, `cc`, `bcc`, `thread_id` |
+| **Update draft** | Edit an existing draft. | `draft_id`, updated fields |
+| **Get draft** | Retrieve a specific draft by ID. | `draft_id` |
+| **List drafts** | List all drafts in your account. | — |
+| **Send draft** | Send a saved draft immediately. | `draft_id` |
+| **Delete draft** | Permanently delete a draft. | `draft_id` |
+| **Reply to thread** | Send a reply within an existing email thread. | `thread_id`, `body`, `cc`, `bcc` |
+| **Forward message** | Forward a message to a new recipient. | `message_id`, `recipient_email`, `body` |
+| **List threads** | Retrieve a list of threads matching a query. | `query`, `label_ids`, `max_results` |
+| **Delete thread** | Permanently delete an entire thread. | `thread_id` |
+| **Move thread to trash** | Move a thread to the Trash folder. | `thread_id` |
+
+## Example Workflow
+
+**Forward all emails labeled "invoice" to your Accounting folder in Google Drive.**
+
+<Steps>
+  <Step title="Set the trigger">
+    Use **New Gmail Message Received** with `labelIds: ["invoice"]` (or `query: "label:invoice"`) so the workflow fires only when a labeled invoice email arrives.
+  </Step>
+  <Step title="Extract the attachment">
+    Use **Fetch message by ID** to retrieve the full message and pull out any attachments.
+  </Step>
+  <Step title="Save to Drive">
+    Use the **Google Drive → Upload file** action to save the attachment to your `Accounting` folder, naming the file after the email subject and date.
+  </Step>
+  <Step title="Confirm with a reply">
+    Optionally, use **Reply to thread** to send yourself a confirmation that the file was filed.
+  </Step>
+</Steps>
+
+## Scopes Reference
+
+| Scope | What Atmet can do |
+|-------|------------------|
+| `gmail.send` | Send emails, manage drafts, reply to threads, forward messages |
+| `gmail.readonly` | Read messages, search your inbox, fetch threads and drafts |
+
+Atmet does not request write access to labels, settings, or any scope beyond `send` and `readonly`. You can review and revoke Atmet's access at any time from your [Google Account permissions page](https://myaccount.google.com/permissions).
+
+## Troubleshooting
+
+<Accordion title="My Gmail token expired and workflows stopped running">
+  OAuth tokens can expire or be revoked if you change your Google password or revoke access from Google's side. To fix this, go to **Settings → Integrations**, find Gmail, and click **Reconnect**. Complete the OAuth flow again and your workflows will resume.
+</Accordion>
+
+<Accordion title="Emails are arriving but the trigger isn't firing">
+  Check the `labelIds` and `query` filters on your trigger. If the incoming email doesn't match the configured filter, the trigger won't fire. Try setting both fields to empty to confirm the trigger fires on any new message, then narrow down your filters from there.
+</Accordion>
+
+<Accordion title="My workflow can't send email — getting a permission error">
+  This usually means Atmet's token is missing the `gmail.send` scope, which can happen if you authorized before the scope was added, or if you only granted partial permissions during OAuth. Go to **Settings → Integrations**, disconnect Gmail, and reconnect — making sure to approve all requested permissions when the Google consent screen appears.
+</Accordion>
+
+<Accordion title="Attachments aren't being included when I send email">
+  The **Send email** action accepts an `attachment` field. Make sure the value is passed as a base64-encoded string with the correct MIME type. If you're passing a Drive file, use the **Google Drive → Get file** action first to retrieve the file content, then pass it to the Send email action.
+</Accordion>
